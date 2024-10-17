@@ -32,10 +32,7 @@ function App() {
         <Route path="/change-events" element={<ChangeEvents />}></Route>
         <Route path="/create-event" element={<CreateEvent />}></Route>
         <Route path="/admin/events/edit/:eventId" element={<EditEventForm />} />
-        {/* <Route path="/signup" element={<SignUp />}></Route> */}
         <Route path="/login" element={<LogIn />}></Route>
-        {/* <Route path="/events" element={<EventPage />}></Route>
-        <Route path="/create-event" element={<CreateEvent />}></Route> */}
       </Routes>
     </>
   );
