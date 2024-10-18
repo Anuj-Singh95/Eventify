@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import TextField from "@mui/material/TextField";
 import { Link, useNavigate } from "react-router-dom";
-import "./signup.css";
 
 const SignUp = () => {
   const [formData, setFormData] = useState({});
@@ -9,9 +8,9 @@ const SignUp = () => {
   const [pass, setPass] = useState();
   const [conPass, setConPass] = useState();
   const navigate = useNavigate();
-  const submitHnadler = async (e) => {
+
+  const submitHandler = async (e) => {
     e.preventDefault();
-    console.log(e);
     const data = {
       firstName: e.target[0].value,
       lastName: e.target[2].value,
@@ -19,9 +18,8 @@ const SignUp = () => {
       password: e.target[6].value,
       confirmPass: e.target[8].value,
     };
-    console.log(data);
     setFormData(data);
-    // console.log(formData)
+
     let response = await fetch("http://localhost:5000/api/v1/signup", {
       method: "POST",
       headers: {
@@ -31,9 +29,7 @@ const SignUp = () => {
     });
 
     response = await response.json();
-    console.log(response);
-
-    if (response.success == "false") {
+    if (response.success === "false") {
       alert(response.message);
     } else {
       navigate("/login");
@@ -49,71 +45,126 @@ const SignUp = () => {
   };
 
   return (
-    <div className="signup-container">
-      {console.log(formData)}
-      <div className="signup-form-container glass">
-        <div className="signup-form">
-          <h2>Sign-Up</h2>
-          <form onSubmit={submitHnadler}>
-            <TextField
-              // required
-              id="outlined-required xyz"
-              label="First Name"
-              placeholder="Enter the first name"
-              className="user-input"
-            />
-            <TextField
-              // required
-              id="outlined-required xyz2"
-              label="last Name"
-              placeholder="Enter the last name"
-              className="user-input"
-            />
-            <TextField
-              // required
-              id="outlined-required"
-              label="Enter E-mail"
-              placeholder="Enter E-mail"
-              className="user-input"
-            />
-            <TextField
-              id="outlined-password-input abc"
-              label="Password"
-              type="password"
-              autoComplete="current-password"
-              placeholder="Enter Password"
-              onChange={(e) => {
-                setPass(e.target.value);
-              }}
-            />
+    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+      <div className="w-full max-w-md p-8 space-y-6 bg-white shadow-2xl rounded-xl">
+        <h2 className="text-3xl font-bold text-center text-[#9333ea]">
+          Create an Account
+        </h2>
+        <form onSubmit={submitHandler} className="space-y-5">
+          <TextField
+            id="outlined-required"
+            label="First Name"
+            placeholder="Enter the first name"
+            className="w-full"
+            sx={{
+              "& .MuiOutlinedInput-root": {
+                "&.Mui-focused fieldset": {
+                  borderColor: "#9333ea",
+                },
+              },
+              "& .MuiInputLabel-root.Mui-focused": {
+                color: "#9333ea",
+              },
+            }}
+          />
+          <TextField
+            id="outlined-required"
+            label="Last Name"
+            placeholder="Enter the last name"
+            className="w-full"
+            sx={{
+              "& .MuiOutlinedInput-root": {
+                "&.Mui-focused fieldset": {
+                  borderColor: "#9333ea",
+                },
+              },
+              "& .MuiInputLabel-root.Mui-focused": {
+                color: "#9333ea",
+              },
+            }}
+          />
+          <TextField
+            id="outlined-required"
+            label="Email"
+            placeholder="Enter E-mail"
+            className="w-full"
+            sx={{
+              "& .MuiOutlinedInput-root": {
+                "&.Mui-focused fieldset": {
+                  borderColor: "#9333ea",
+                },
+              },
+              "& .MuiInputLabel-root.Mui-focused": {
+                color: "#9333ea",
+              },
+            }}
+          />
+          <TextField
+            id="outlined-password-input"
+            label="Password"
+            type="password"
+            autoComplete="current-password"
+            placeholder="Enter Password"
+            className="w-full"
+            onChange={(e) => setPass(e.target.value)}
+            sx={{
+              "& .MuiOutlinedInput-root": {
+                "&.Mui-focused fieldset": {
+                  borderColor: "#9333ea",
+                },
+              },
+              "& .MuiInputLabel-root.Mui-focused": {
+                color: "#9333ea",
+              },
+            }}
+          />
 
-            {passMatch === "empty" && <p style={{ color: "sucess" }}></p>}
-            {passMatch == true && (
-              <p style={{ color: "green" }}>Passwords match!</p>
-            )}
-            {passMatch == false && (
-              <p style={{ color: "red" }}>Passwords doesn't match!</p>
-            )}
-            <TextField
-              id="outlined-password-input"
-              label="Confirm Password"
-              type="password"
-              autoComplete="current-password"
-              placeholder="Confirm password"
-              onChange={(e) => {
-                setConPass(e.target.value);
-                passHandler(e.target.value);
-              }}
-            />
-            <Link to="/login">already have a account ? Login</Link>
-            {/* <Button type="submit" variant="contained" color="success">
-          Sign Up
-        </Button> */}
-            <button type="submit" className="sbmit-btn">
+          {passMatch === "empty" && <p></p>}
+          {passMatch === true && (
+            <p className="text-green-600">Passwords match!</p>
+          )}
+          {passMatch === false && (
+            <p className="text-red-600">Passwords don't match!</p>
+          )}
+
+          <TextField
+            id="outlined-password-input"
+            label="Confirm Password"
+            type="password"
+            autoComplete="current-password"
+            placeholder="Confirm password"
+            className="w-full"
+            onChange={(e) => {
+              setConPass(e.target.value);
+              passHandler(e.target.value);
+            }}
+            sx={{
+              "& .MuiOutlinedInput-root": {
+                "&.Mui-focused fieldset": {
+                  borderColor: "#9333ea",
+                },
+              },
+              "& .MuiInputLabel-root.Mui-focused": {
+                color: "#9333ea",
+              },
+            }}
+          />
+
+          <div className="flex justify-between items-center">
+            <Link
+              to="/login"
+              className="text-[#9333ea] hover:underline hover:text-[#7b2acc]"
+            >
+              Already have an account? Login
+            </Link>
+            <button
+              type="submit"
+              className="px-6 py-2 bg-[#9333ea] text-white rounded-md hover:bg-[#7b2acc] transition duration-200"
+            >
               Sign Up
             </button>
-          </form>
-        </div>
+          </div>
+        </form>
       </div>
     </div>
   );
