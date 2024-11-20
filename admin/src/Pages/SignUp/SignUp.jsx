@@ -8,17 +8,13 @@ const SignUp = () => {
   const [passMatch, setPassMatch] = useState("empty");
   const [pass, setPass] = useState();
   const [conPass, setConPass] = useState();
+
   const navigate = useNavigate();
   const submitHnadler = async (e) => {
     e.preventDefault();
-    console.log(e);
-    const data = {
-      firstName: e.target[0].value,
-      lastName: e.target[2].value,
-      email: e.target[4].value,
-      password: e.target[6].value,
-      confirmPass: e.target[8].value,
-    };
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData.entries());
+
     console.log(data);
     setFormData(data);
     // console.log(formData)
@@ -69,6 +65,7 @@ const SignUp = () => {
               placeholder="Enter the last name"
               className="user-input"
             />
+
             <TextField
               // required
               id="outlined-required"

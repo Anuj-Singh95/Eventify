@@ -1,26 +1,41 @@
 import React, { useEffect, useState } from "react";
 import TextField from "@mui/material/TextField";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { MenuItem, Select } from "@mui/material";
 
 const SignUp = () => {
   const [formData, setFormData] = useState({});
   const [passMatch, setPassMatch] = useState("empty");
   const [pass, setPass] = useState();
   const [conPass, setConPass] = useState();
+
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPass, setConfirmPass] = useState("");
+
+  const [course, setCourse] = useState("");
+  const [branch, setBranch] = useState("");
+
   const navigate = useNavigate();
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    console.log(e);
     const data = {
-      firstName: e.target[0].value,
-      lastName: e.target[2].value,
-      email: e.target[4].value,
-      password: e.target[6].value,
-      confirmPass: e.target[8].value,
+      firstName: firstName,
+      lastName: lastName,
+      course: course,
+      branch: branch,
+      email: email,
+      password: password,
+      confirmPass: confirmPass,
     };
-    setFormData(data);
+    console.log(data);
+    // setFormData(data);
 
-    let response = await fetch("http://localhost:5000/api/v1/signup", {
+    let response = await fetch(`${REACT_APP_URI}/api/v1/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -56,6 +71,7 @@ const SignUp = () => {
             label="First Name"
             placeholder="Enter the first name"
             className="w-full"
+            onChange={(e) => setFirstName(e.target.value)}
             sx={{
               "& .MuiOutlinedInput-root": {
                 "&.Mui-focused fieldset": {
@@ -72,6 +88,7 @@ const SignUp = () => {
             label="Last Name"
             placeholder="Enter the last name"
             className="w-full"
+            onChange={(e) => setLastName(e.target.value)}
             sx={{
               "& .MuiOutlinedInput-root": {
                 "&.Mui-focused fieldset": {
@@ -83,11 +100,52 @@ const SignUp = () => {
               },
             }}
           />
+
+          <Select
+            required
+            value={course}
+            onChange={(e) => setCourse(e.target.value)}
+            displayEmpty
+            className="user-input"
+            style={{ marginTop: "16px" }}
+          >
+            <MenuItem value="" disabled>
+              Select Course
+            </MenuItem>
+            <MenuItem value="b.tech">B.Tech</MenuItem>
+            <MenuItem value="mca">MCA</MenuItem>
+            <MenuItem value="bca">MBA</MenuItem>
+            <MenuItem value="b.pharma">B. pharma</MenuItem>
+            <MenuItem value="m.pharma">M. pharma</MenuItem>
+          </Select>
+
+          {course == "b.tech" && (
+            <>
+              <Select
+                required
+                value={branch}
+                onChange={(e) => setBranch(e.target.value)}
+                displayEmpty
+                className="user-input"
+                style={{ marginTop: "16px" }}
+              >
+                <MenuItem value="" disabled>
+                  Select Branch
+                </MenuItem>
+                <MenuItem value="Computer Science">Computer Science</MenuItem>
+                <MenuItem value="Electronics">Electronics</MenuItem>
+                <MenuItem value="Civil">Civil</MenuItem>
+                <MenuItem value="IT">IT</MenuItem>
+                <MenuItem value="Mechanical">Mechanical</MenuItem>
+              </Select>
+            </>
+          )}
           <TextField
             id="outlined-required"
             label="Email"
             placeholder="Enter E-mail"
             className="w-full"
+            onChange={(e) => setEmail(e.target.value)}
             sx={{
               "& .MuiOutlinedInput-root": {
                 "&.Mui-focused fieldset": {
@@ -99,6 +157,7 @@ const SignUp = () => {
               },
             }}
           />
+
           <TextField
             id="outlined-password-input"
             label="Password"
@@ -106,7 +165,10 @@ const SignUp = () => {
             autoComplete="current-password"
             placeholder="Enter Password"
             className="w-full"
-            onChange={(e) => setPass(e.target.value)}
+            onChange={(e) => {
+              setPass(e.target.value);
+              setPassword(e.target.value);
+            }}
             sx={{
               "& .MuiOutlinedInput-root": {
                 "&.Mui-focused fieldset": {
@@ -136,6 +198,7 @@ const SignUp = () => {
             className="w-full"
             onChange={(e) => {
               setConPass(e.target.value);
+              setConfirmPass(e.target.value);
               passHandler(e.target.value);
             }}
             sx={{

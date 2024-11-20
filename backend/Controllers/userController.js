@@ -19,6 +19,7 @@ const signupController = async (req, res) => {
       user: data,
     });
   } catch (error) {
+    // console.log(error.message);
     if (error.message.search("E11000") != -1) {
       res.status(400).json({
         success: "false",

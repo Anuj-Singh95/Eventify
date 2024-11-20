@@ -12,6 +12,12 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
       path: "/events",
     },
     {
+      id: "listed-team-events",
+      icon: List,
+      label: "Listed Team Events",
+      path: "/team-events",
+    },
+    {
       id: "change-events",
       icon: Edit,
       label: "Change Events",
@@ -22,6 +28,24 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
       icon: PlusCircle,
       label: "Create Events",
       path: "/create-event",
+    },
+    {
+      id: "create-team-event",
+      icon: PlusCircle,
+      label: "Create Team Event",
+      path: "/create-team-event",
+    },
+    {
+      id: "registrations",
+      icon: List,
+      label: "Registrations",
+      path: "/registrations",
+    },
+    {
+      id: "team-registration",
+      icon: List,
+      label: "Team Registration",
+      path: "/team-registrations",
     },
   ];
 

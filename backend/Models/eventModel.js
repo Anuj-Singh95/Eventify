@@ -15,6 +15,9 @@ const eventSchema = new mongoose.Schema({
   date: {
     type: Date,
   },
+  endDate: {
+    type: Date,
+  },
   startTime: {
     type: String,
   },
@@ -39,6 +42,10 @@ const eventSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now,
+  },
+  registrationsCount: {
+    type: Number,
+    default: 0, // Initializes with 0 registrations
   },
 });
 

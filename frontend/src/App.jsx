@@ -7,6 +7,7 @@ import EventPage from "./Pages/Events/EventPage";
 import CreateEvent from "./Pages/CreateEvent/CreateEvent";
 import Contact from "./Component/Contact us/Contact";
 import "./App.css";
+import TeamEventPage from "./Pages/TeamEventPage/TeamEventPage";
 
 function App() {
   const navigate = useNavigate();
@@ -27,6 +28,7 @@ function App() {
         <Route path="/signup" element={<SignUp />}></Route>
         <Route path="/login" element={<LogIn />}></Route>
         <Route path="/events" element={<EventPage />}></Route>
+        <Route path="/team-events" element={<TeamEventPage />}></Route>
         <Route path="/create-event" element={<CreateEvent />}></Route>
       </Routes>
     </>

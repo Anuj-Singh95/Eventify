@@ -18,6 +18,7 @@ import "./Navbar.css";
 const navigation = [
   { name: "Home", href: "/", current: true },
   { name: "Events", href: "/events", current: false },
+  { name: "Team Events", href: "/team-events", current: false },
   // { name: "About us", href: "/about", current: false },
   { name: "Contact us", href: "/contact", current: false },
 ];

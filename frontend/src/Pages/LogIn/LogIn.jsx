@@ -13,7 +13,7 @@ const LogIn = () => {
       password: e.target[2].value,
     };
     setLoginData(data);
-    let response = await fetch("http://localhost:5000/api/v1/login", {
+    let response = await fetch(`${REACT_APP_URI}/api/v1/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

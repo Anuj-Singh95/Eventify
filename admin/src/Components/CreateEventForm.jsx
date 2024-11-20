@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Calendar,
   Clock,
@@ -8,7 +8,6 @@ import {
   Phone,
   Mail,
 } from "lucide-react";
-import { useNavigate } from "react-router-dom";
 
 const EventType = [
   { value: "Curricular", label: "Curricular" },
@@ -19,13 +18,24 @@ const EventType = [
 ];
 
 export default function CreateEventForm() {
-  const navigate = useNavigate();
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+
+  // Update end date min value when start date changes
+  const handleStartDateChange = (e) => {
+    const newStartDate = e.target.value;
+    setStartDate(newStartDate);
+
+    // If end date is before new start date, update it
+    if (endDate && endDate < newStartDate) {
+      setEndDate(newStartDate);
+    }
+  };
 
   const submitHandler = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData.entries());
-    console.log(data);
 
     try {
       let response = await fetch("http://localhost:5000/api/v1/create-event", {
@@ -38,46 +48,16 @@ export default function CreateEventForm() {
       });
       response = await response.json();
       console.log(response);
-      navigate("/events");
+      if (response.success) {
+        window.location.href = "/events";
+      }
     } catch (error) {
       console.error("Error creating event:", error);
     }
   };
 
   return (
-    // <div className="min-h-screen bg-gradient-to-br from-purple-600 to-indigo-700 text-white">
     <div>
-      {/* <header className="container mx-auto px-4 py-6 flex justify-between items-center">
-        <div className="flex items-center">
-          <Calendar className="w-8 h-8 mr-2" />
-          <span className="text-2xl font-bold">Eventify</span>
-        </div>
-        <nav>
-          <ul className="flex space-x-6">
-            <li>
-              <a href="#" className="hover:text-purple-200">
-                Home
-              </a>
-            </li>
-            <li>
-              <a href="#" className="hover:text-purple-200">
-                Workshops
-              </a>
-            </li>
-            <li>
-              <a href="#" className="hover:text-purple-200">
-                Events
-              </a>
-            </li>
-            <li>
-              <a href="#" className="hover:text-purple-200">
-                Meet-Up
-              </a>
-            </li>
-          </ul>
-        </nav>
-      </header> */}
-
       <main className="container mx-auto px-4 py-16">
         <div className="max-w-3xl mx-auto bg-white rounded-lg shadow-lg p-8">
           <h1 className="text-4xl font-bold text-purple-600 text-center mb-8">
@@ -120,32 +100,69 @@ export default function CreateEventForm() {
                   required
                 ></textarea>
               </div>
+
               <div className="flex items-center space-x-2">
                 <Calendar className="text-purple-600" />
-                <input
-                  name="date"
-                  type="date"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-gray-700"
-                  required
-                />
+                <div className="w-full">
+                  <label className="block text-sm text-gray-600 mb-1">
+                    Start Date
+                  </label>
+                  <input
+                    name="date"
+                    type="date"
+                    value={startDate}
+                    onChange={handleStartDateChange}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-gray-700"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className="flex items-center space-x-2">
+                <Calendar className="text-purple-600" />
+                <div className="w-full">
+                  <label className="block text-sm text-gray-600 mb-1">
+                    End Date
+                  </label>
+                  <input
+                    name="endDate"
+                    type="date"
+                    value={endDate}
+                    min={startDate}
+                    onChange={(e) => setEndDate(e.target.value)}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-gray-700"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className="flex items-center space-x-2">
+                <Clock className="text-purple-600" />
+                <div className="w-full">
+                  <label className="block text-sm text-gray-600 mb-1">
+                    Start Time
+                  </label>
+                  <input
+                    name="startTime"
+                    type="time"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-gray-700"
+                    required
+                  />
+                </div>
               </div>
               <div className="flex items-center space-x-2">
                 <Clock className="text-purple-600" />
-                <input
-                  name="startTime"
-                  type="time"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-gray-700"
-                  required
-                />
-              </div>
-              <div className="flex items-center space-x-2">
-                <Clock className="text-purple-600" />
-                <input
-                  name="endTime"
-                  type="time"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-gray-700"
-                  required
-                />
+                <div className="w-full">
+                  <label className="block text-sm text-gray-600 mb-1">
+                    End Time
+                  </label>
+                  <input
+                    name="endTime"
+                    type="time"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-gray-700"
+                    required
+                  />
+                </div>
               </div>
               <div className="flex items-center space-x-2">
                 <MapPin className="text-purple-600" />
@@ -162,6 +179,7 @@ export default function CreateEventForm() {
                 <input
                   name="capacity"
                   type="number"
+                  min="5"
                   placeholder="Total Event Capacity"
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-gray-700"
                   required

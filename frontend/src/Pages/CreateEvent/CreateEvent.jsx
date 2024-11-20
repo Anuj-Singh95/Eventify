@@ -23,7 +23,7 @@ export default function CreateEvent() {
   const [isAdmin, setIsAdmin] = useState(false);
 
   const getUserData = async () => {
-    let response = await fetch("http://localhost:5000/api/v1/me", {
+    let response = await fetch(`${REACT_APP_URI}/api/v1/me`, {
       headers: {
         "Content-Type": "application/json",
         token: localStorage.getItem("token"),
@@ -188,6 +188,7 @@ export default function CreateEvent() {
                 <input
                   name="capacity"
                   type="number"
+                  min="2"
                   placeholder="Total Event Capacity"
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-gray-700"
                   required
