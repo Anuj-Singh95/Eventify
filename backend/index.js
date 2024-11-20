@@ -10,6 +10,9 @@ const adminRoute = require("./Routes/adminRoute");
 
 app.use(cors());
 app.use(express.json());
+app.get("/", (req, res) => {
+  res.send("<h1>Backend API</h1>");
+});
 app.use("/api/v1/", userRoute);
 app.use("/api/v1/", eventRoute);
 app.use("/api/v1/", adminRoute);
