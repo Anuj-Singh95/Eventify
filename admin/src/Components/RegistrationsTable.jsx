@@ -31,25 +31,28 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 export default function RegistrationsTable() {
   const [registrations, setRegistrations] = useState([]);
-  const [loading, setLoading] = useState(true);  // Loading state
+  const [loading, setLoading] = useState(true); // Loading state
 
   const getRegistrations = async () => {
     try {
-      let response = await fetch("http://localhost:5000/api/v1/registrations", {
-        headers: {
-          token: localStorage.getItem("token"),
-          "Content-Type": "application/json",
-        },
-        method: "get",
-      });
+      let response = await fetch(
+        `${process.env.REACT_APP_URL}/api/v1/registrations`,
+        {
+          headers: {
+            token: localStorage.getItem("token"),
+            "Content-Type": "application/json",
+          },
+          method: "get",
+        }
+      );
       response = await response.json();
-      console.log(response);  // Log the full response to inspect the structure
+      console.log(response); // Log the full response to inspect the structure
       if (response.registrations) {
         setRegistrations(response.registrations);
       } else {
         console.log("No registrations found in the response.");
       }
-      setLoading(false);  // Set loading to false once data is fetched
+      setLoading(false); // Set loading to false once data is fetched
     } catch (error) {
       console.log("Error while fetching data: " + error.message);
       setLoading(false);
@@ -88,7 +91,9 @@ export default function RegistrationsTable() {
                 {registration.event_id?.eventName || "No event name"}
               </StyledTableCell>
               <StyledTableCell align="right">
-                {registration.user_id?.firstName + " " + registration.user_id?.lastName || "No name"}
+                {registration.user_id?.firstName +
+                  " " +
+                  registration.user_id?.lastName || "No name"}
               </StyledTableCell>
               <StyledTableCell align="right">
                 {registration.user_id?.email || "No email"}

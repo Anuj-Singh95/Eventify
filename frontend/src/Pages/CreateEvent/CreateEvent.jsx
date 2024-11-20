@@ -23,7 +23,7 @@ export default function CreateEvent() {
   const [isAdmin, setIsAdmin] = useState(false);
 
   const getUserData = async () => {
-    let response = await fetch(`${REACT_APP_URI}/api/v1/me`, {
+    let response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/me`, {
       headers: {
         "Content-Type": "application/json",
         token: localStorage.getItem("token"),

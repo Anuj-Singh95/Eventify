@@ -24,7 +24,7 @@ const EditEventPage = () => {
     const fetchEvent = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/api/v1/events/${eventId}`,
+          `${process.env.REACT_APP_URL}/api/v1/events/${eventId}`,
           {
             method: "GET",
             headers: {
@@ -53,7 +53,7 @@ const EditEventPage = () => {
     e.preventDefault();
     try {
       let response = await fetch(
-        `http://localhost:5000/api/v1/events/${eventId}`,
+        `${process.env.REACT_APP_URL}/api/v1/events/${eventId}`,
         {
           method: "PUT",
           headers: {

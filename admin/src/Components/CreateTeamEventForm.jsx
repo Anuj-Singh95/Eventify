@@ -320,7 +320,7 @@ export default function CreateTeamEventForm() {
 
     try {
       let response = await fetch(
-        "http://localhost:5000/api/v1/create-team-event",
+        `${process.env.REACT_APP_URL}/api/v1/create-team-event`,
         {
           method: "POST",
           headers: {

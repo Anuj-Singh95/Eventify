@@ -321,14 +321,17 @@ const TeamEventCard = ({
     const token = localStorage.getItem("token");
     const data = { eventId: e.target.value };
 
-    let response = await fetch(`${REACT_APP_URI}/api/v1/register`, {
-      method: "POST",
-      headers: {
-        token,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
+    let response = await fetch(
+      `${import.meta.env.VITE_API_URL}/api/v1/register`,
+      {
+        method: "POST",
+        headers: {
+          token,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    );
 
     response = await response.json();
     onLoadingHandler(false);
@@ -346,14 +349,17 @@ const TeamEventCard = ({
     const token = localStorage.getItem("token");
     const data = { eventId: e.target.value };
 
-    let response = await fetch(`${REACT_APP_URI}/api/v1/cancel-registration`, {
-      method: "POST",
-      headers: {
-        token,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
+    let response = await fetch(
+      `${import.meta.env.VITE_API_URL}/api/v1/cancel-registration`,
+      {
+        method: "POST",
+        headers: {
+          token,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    );
 
     response = await response.json();
     onLoadingHandler(false);

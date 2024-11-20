@@ -9,7 +9,7 @@ export default function TeamRegistrationsTable() {
     const fetchRegistrations = async () => {
       try {
         let response = await fetch(
-          "http://localhost:5000/api/v1/team-registrations",
+          `${process.env.REACT_APP_URL}/api/v1/team-registrations`,
           {
             method: "GET",
             headers: {

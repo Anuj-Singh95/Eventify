@@ -35,13 +35,16 @@ const SignUp = () => {
     console.log(data);
     // setFormData(data);
 
-    let response = await fetch(`${REACT_APP_URI}/api/v1/signup`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
+    let response = await fetch(
+      `${import.meta.env.VITE_API_URL}/api/v1/signup`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    );
 
     response = await response.json();
     if (response.success === "false") {

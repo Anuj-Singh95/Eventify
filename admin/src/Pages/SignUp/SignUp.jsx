@@ -18,7 +18,7 @@ const SignUp = () => {
     console.log(data);
     setFormData(data);
     // console.log(formData)
-    let response = await fetch("http://localhost:5000/api/v1/signup", {
+    let response = await fetch(`${process.env.REACT_APP_URL}/api/v1/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

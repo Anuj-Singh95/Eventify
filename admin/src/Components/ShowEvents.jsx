@@ -90,12 +90,15 @@ const ShowEvents = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/v1/events", {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          method: "GET",
-        });
+        const response = await fetch(
+          `${process.env.REACT_APP_URL}/api/v1/events`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+            method: "GET",
+          }
+        );
 
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -206,4 +209,3 @@ const ShowEvents = () => {
 };
 
 export default ShowEvents;
-

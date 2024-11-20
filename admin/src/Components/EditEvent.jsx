@@ -10,12 +10,15 @@ const EditEvent = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        let response = await fetch("http://localhost:5000/api/v1/events", {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          method: "GET",
-        }); // Make sure this API is running
+        let response = await fetch(
+          `${process.env.REACT_APP_URL}/api/v1/events`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+            method: "GET",
+          }
+        ); // Make sure this API is running
         response = await response.json();
         console.log(response);
         setEvents(response.events);

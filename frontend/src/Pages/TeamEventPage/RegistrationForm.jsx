@@ -63,14 +63,17 @@ const RegistrationForm = ({ eventId, handleForm }) => {
     console.log(token);
 
     console.log(data);
-    let response = await fetch(`${REACT_APP_URI}/api/v1/register-team-event`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        token: token,
-      },
-      body: JSON.stringify(data),
-    });
+    let response = await fetch(
+      `${import.meta.env.VITE_API_URL}/api/v1/register-team-event`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          token: token,
+        },
+        body: JSON.stringify(data),
+      }
+    );
     response = await response.json();
     console.log(response);
     alert(response.message);

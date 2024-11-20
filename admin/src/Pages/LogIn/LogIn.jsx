@@ -15,11 +15,14 @@ const LogIn = () => {
     const data = { email, password };
 
     try {
-      const response = await fetch("http://localhost:5000/api/v1/admin-login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_URL}/api/v1/admin-login`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        }
+      );
       const result = await response.json();
       console.log(result);
       if (result.success === "false") {

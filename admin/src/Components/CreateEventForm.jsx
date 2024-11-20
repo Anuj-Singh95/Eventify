@@ -38,14 +38,17 @@ export default function CreateEventForm() {
     const data = Object.fromEntries(formData.entries());
 
     try {
-      let response = await fetch("http://localhost:5000/api/v1/create-event", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          token: localStorage.getItem("token"),
-        },
-        body: JSON.stringify(data),
-      });
+      let response = await fetch(
+        `${process.env.REACT_APP_URL}/api/v1/create-event`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            token: localStorage.getItem("token"),
+          },
+          body: JSON.stringify(data),
+        }
+      );
       response = await response.json();
       console.log(response);
       if (response.success) {

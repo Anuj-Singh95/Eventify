@@ -28,12 +28,15 @@ const TeamEventPage = () => {
 
   // Fetch all events
   const getEvents = async () => {
-    let result = await fetch(`${REACT_APP_URI}/api/v1/team-events`, {
-      method: "GET",
-      headers: {
-        contentType: "application/json",
-      },
-    });
+    let result = await fetch(
+      `${import.meta.env.VITE_API_URL}/api/v1/team-events`,
+      {
+        method: "GET",
+        headers: {
+          contentType: "application/json",
+        },
+      }
+    );
     result = await result.json();
     setEvents(result.teamEvents);
     setIsLoading(false);
@@ -41,13 +44,16 @@ const TeamEventPage = () => {
 
   // Fetch registered events for the user
   const getRegisteredEvents = async () => {
-    let result = await fetch(`${REACT_APP_URI}/api/v1/registered-events`, {
-      method: "GET",
-      headers: {
-        token: localStorage.getItem("token"),
-        contentType: "application/json",
-      },
-    });
+    let result = await fetch(
+      `${import.meta.env.VITE_API_URL}/api/v1/registered-events`,
+      {
+        method: "GET",
+        headers: {
+          token: localStorage.getItem("token"),
+          contentType: "application/json",
+        },
+      }
+    );
     result = await result.json();
     setRegisteredEvents(result.registeredEvents);
   };
