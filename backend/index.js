@@ -8,7 +8,25 @@ const eventRoute = require("./Routes/eventRoute");
 const adminRoute = require("./Routes/adminRoute");
 // dotenv.config();
 
-app.use(cors());
+const allowedDomains = [
+  "https://eventify-frontend-eta.vercel.app",
+  "https://eventify-admin.vercel.app",
+];
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedDomains.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+  })
+);
+
+// app.use(cors());
+
 app.use(express.json());
 app.get("/", (req, res) => {
   res.send("<h1>Backend API</h1>");
