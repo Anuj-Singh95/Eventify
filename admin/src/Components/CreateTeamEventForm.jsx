@@ -334,9 +334,9 @@ export default function CreateTeamEventForm() {
       );
       response = await response.json();
       console.log(response);
-      // if (response.success) {
-      //   window.location.href = "/team-events";
-      // }
+      if (response.success) {
+        window.location.href = "/team-events";
+      }
     } catch (error) {
       console.error("Error creating team event:", error);
     }
