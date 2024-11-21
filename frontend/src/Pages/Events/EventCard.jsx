@@ -187,14 +187,17 @@ const EventCard = ({
     const token = localStorage.getItem("token");
     const data = { eventId: e.target.value };
 
-    let response = await fetch("http://localhost:5000/api/v1/register-event", {
-      method: "POST",
-      headers: {
-        token: token,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
+    let response = await fetch(
+      `${import.meta.env.VITE_API_URL}/api/v1/register-event`,
+      {
+        method: "POST",
+        headers: {
+          token: token,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    );
     response = await response.json();
     onLoadingHandler(false);
     setRegistrationsCount((prevCount) => prevCount + 1); // Increment registration count on frontend
@@ -208,7 +211,7 @@ const EventCard = ({
     const data = { eventId: e.target.value };
 
     let response = await fetch(
-      "http://localhost:5000/api/v1/cancel-registration",
+      `${import.meta.env.VITE_API_URL}/api/v1/cancel-registration`,
       {
         method: "POST",
         headers: {
