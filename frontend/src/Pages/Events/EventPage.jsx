@@ -39,7 +39,7 @@ const EventPage = () => {
         method: "GET",
         headers: {
           token: localStorage.getItem("token"),
-          contentType: "application/json",
+          "Content-Type": "application/json",
         },
       }
     );
