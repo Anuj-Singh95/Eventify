@@ -322,7 +322,7 @@ const TeamEventCard = ({
     const data = { eventId: e.target.value };
 
     let response = await fetch(
-      `${import.meta.env.VITE_API_URL}/api/v1/register`,
+      `${import.meta.env.VITE_API_URL}/api/v1/register-event`,
       {
         method: "POST",
         headers: {
