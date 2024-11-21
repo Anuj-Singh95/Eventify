@@ -318,6 +318,8 @@ export default function CreateTeamEventForm() {
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData.entries());
 
+    console.log(data);
+
     try {
       let response = await fetch(
         `${process.env.REACT_APP_URL}/api/v1/create-team-event`,
@@ -529,7 +531,7 @@ export default function CreateTeamEventForm() {
               <div className="flex items-center space-x-2">
                 <Phone className="text-purple-600" />
                 <input
-                  name="organizerContact"
+                  name="contactMobileNo"
                   type="tel"
                   placeholder="Organizer Contact Number"
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent text-gray-700"
@@ -540,7 +542,7 @@ export default function CreateTeamEventForm() {
               <div className="flex items-center space-x-2">
                 <Mail className="text-purple-600" />
                 <input
-                  name="organizerEmail"
+                  name="contactEmail"
                   type="email"
                   placeholder="Organizer Email"
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent text-gray-700"
